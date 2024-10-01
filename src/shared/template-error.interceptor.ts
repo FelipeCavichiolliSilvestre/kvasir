@@ -10,23 +10,26 @@ import { catchError, Observable, of } from 'rxjs';
 @Injectable()
 export class ErrorInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    function catchErrorFn(error: any) {
-      if (!(error instanceof HttpException)) {
-        return of({
-          error: true,
-          message: 'Internal server error',
-          statusCode: 500,
-        });
-      }
+    return next.handle().pipe(catchError(this.catchErrorFn));
+  }
 
-      const errorResponse = error.getResponse();
-      const response =
-        typeof errorResponse == 'string'
-          ? { message: errorResponse }
-          : errorResponse;
-      return of({ error: true, ...response });
+  catchErrorFn(error: any) {
+    if (!(error instanceof HttpException)) {
+      console.error(error);
+
+      return of({
+        error: true,
+        message: 'Internal server error',
+        statusCode: 500,
+      });
     }
 
-    return next.handle().pipe(catchError(catchErrorFn));
+    if (error.getStatus() == 302) throw error;
+    if (error.getStatus() == 401) throw error;
+
+    const errorResponse = error.getResponse();
+    if (typeof errorResponse == 'string')
+      return of({ error: true, message: errorResponse });
+    else return of({ error: true, ...errorResponse });
   }
 }

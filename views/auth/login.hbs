@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  {{>bootstrap }}
+  <title>Login</title>
+</head>
+<body>
+
+{{message}}
+
+<form action="/login" method="post">
+  <label>
+    Nome de usuário:
+    <input type="text" name="username" />
+  </label>
+  <br />
+  <label>
+    Senha:
+    <input type="password" name="password" />
+  </label>
+  <br />
+  <input value="Login" type="submit" />
+</form>
+</body>
+</html>
