@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  {{>bootstrap }}
+  <title>Pacientes</title>
+</head>
+<body>
+<div>
+  {{message}}
+  
+  <a href="/patients/register">
+    Registrar Paciente
+  </a>
+  <form>
+    <input name="search" value="{{search}}" type="search" maxlength="255" minlength="2" />
+    <input type="submit" value="Pesquisar" />
+  </form>
+
+  <p>{{help}}</p>
+
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Paciente</th>
+      <th>Ações</th>
+    </tr>
+    {{#each patients}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.name}}</td>
+        <td>
+          <a href="/patients/{{this.id}}/view" type="submit">Visualizar</a>
+        </td>
+      </tr>
+    {{/each}}
+  </table>
+  {{#if isEmpty}}
+    <p>Nenhum paciente encontrado</p>
+  {{/if}}
+</div>
+</body>
+</html>

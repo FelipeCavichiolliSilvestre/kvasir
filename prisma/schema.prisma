@@ -12,3 +12,11 @@ model User {
   username     String @unique
   passwordHash String
 }
+
+model Patient {
+  id         Int      @id @default(autoincrement())
+  name       String
+  birthDate  DateTime
+  weightInKg Float
+  heightInCm Int
+}

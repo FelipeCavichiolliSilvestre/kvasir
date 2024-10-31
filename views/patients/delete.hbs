@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  {{>bootstrap }}
+  <title>Remover Paciente</title>
+</head>
+<body>
+
+{{message}}
+
+
+<form action="/patients/{{patient.id}}/delete" method="post">
+  Deseja remover o pacience {{patient.name}}?
+  <a href="/patients/{{patient.id}}/view">Cancelar</a>
+  <input value="Remover" type="submit" />
+</form>
+
+</body>
+</html>
