@@ -58,6 +58,7 @@ export class PatientsService implements iPatientsService {
         birthDate: true,
         weightInKg: true,
         heightInCm: true,
+        diagnosis: true,
       },
     });
   }

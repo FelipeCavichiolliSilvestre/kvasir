@@ -6,37 +6,44 @@
   <title>Pacientes</title>
 </head>
 <body>
-<div>
-  {{message}}
-  
-  <a href="/patients/register">
-    Registrar Paciente
-  </a>
-  <form>
-    <input name="search" value="{{search}}" type="search" maxlength="255" minlength="2" />
-    <input type="submit" value="Pesquisar" />
-  </form>
+{{>navbar}}
+<div class="container">
+  <div class="row justify-content-between">
+    {{message}}
+    <form class="col-12 col-sm-6 col-md-4">
+      <div class="input-group mb-3">
+        <input class="form-control" name="search" value="{{search}}" type="search" maxlength="255" minlength="2" />
+        <input class="input-group-text" type="submit" value="🔍">
+      </div>
+    </form>
 
+    <div class="text-end col-12 col-sm-6 col-md-4">
+      <a class="btn btn-primary" href="/patients/register">
+        Registrar Paciente
+      </a>
+    </div>
+  </div>
   <p>{{help}}</p>
 
-  <table>
-    <tr>
-      <th>Id</th>
-      <th>Paciente</th>
-      <th>Ações</th>
-    </tr>
-    {{#each patients}}
-      <tr>
-        <td>{{this.id}}</td>
-        <td>{{this.name}}</td>
-        <td>
-          <a href="/patients/{{this.id}}/view" type="submit">Visualizar</a>
-        </td>
-      </tr>
-    {{/each}}
-  </table>
   {{#if isEmpty}}
-    <p>Nenhum paciente encontrado</p>
+    <p class="text-center">Nenhum paciente encontrado</p>
+  {{else}}
+    <table class="table">
+      <tr>
+        <th>Id</th>
+        <th>Paciente</th>
+        <th>Ações</th>
+      </tr>
+      {{#each patients}}
+        <tr>
+          <td>{{this.id}}</td>
+          <td>{{this.name}}</td>
+          <td>
+            <a href="/patients/{{this.id}}/view" type="submit">Detalhes</a>
+          </td>
+        </tr>
+      {{/each}}
+    </table>
   {{/if}}
 </div>
 </body>

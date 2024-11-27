@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Patient } from '@prisma/client';
+import { Diagnostic, Patient } from '@prisma/client';
 
 @Injectable()
 export abstract class iPatientsService {
@@ -32,6 +32,8 @@ export type GetPatientInput = {
   patientId: number;
 };
 
-export type GetPatientOutput = Patient;
+export type GetPatientOutput = {
+  diagnosis: Diagnostic[];
+} & Patient;
 
 export type EditPatientInput = RegisterPatientInput & { patientId: number };

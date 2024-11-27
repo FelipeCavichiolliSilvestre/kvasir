@@ -14,9 +14,20 @@ model User {
 }
 
 model Patient {
-  id         Int      @id @default(autoincrement())
+  id         Int          @id @default(autoincrement())
   name       String
   birthDate  DateTime
   weightInKg Float
   heightInCm Int
+  diagnosis  Diagnostic[]
+}
+
+model Diagnostic {
+  id        Int      @id @default(autoincrement())
+  patient   Patient  @relation(fields: [patientId], references: [id])
+  createdAt DateTime @default(now())
+  image     String
+  result    String
+
+  patientId Int
 }

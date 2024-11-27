@@ -5,22 +5,30 @@
   {{>bootstrap }}
   <title>Login</title>
 </head>
-<body>
+<body style="display: grid; height: 100vh" class="flex-column align-items-center justify-content-center">
+<div>
+  {{message}}
+  <h1 class="text-center mb-4">LOGIN</h1>
+  <form action="/login" method="post">
 
-{{message}}
+    <div class="mb-2">
+      <label class="form-label">
+        Nome de usuário:
+        <input class="form-control" type="text" name="username" />
+      </label>
+    </div>
 
-<form action="/login" method="post">
-  <label>
-    Nome de usuário:
-    <input type="text" name="username" />
-  </label>
-  <br />
-  <label>
-    Senha:
-    <input type="password" name="password" />
-  </label>
-  <br />
-  <input value="Login" type="submit" />
-</form>
+    <div class="mb-2">
+      <label class="form-label">
+        Senha:
+        <input class="form-control" type="password" name="password" />
+      </label>
+    </div>
+    
+    <div class="d-grid">
+      <input class="btn btn-primary" value="Login" type="submit" />
+    </div>
+  </form>
+</div>
 </body>
 </html>

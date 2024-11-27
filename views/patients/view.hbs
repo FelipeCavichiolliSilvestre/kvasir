@@ -31,5 +31,30 @@
   </tr>
 </table>
 
+<form enctype="multipart/form-data" action="/patients/{{patient.id}}/diagnostics/create" method="post">
+  <input type="file" name="image" required>
+  <input type="submit" value="Criar Diagnóstico" />
+</form>
+
+<table>
+  <tr>
+    <th>Imagem</th>
+    <th>Id</th>
+    <th>Dt. de Análise</th>
+    <th>Resultado</th>
+    <th>Ações</th>
+  </tr>
+
+  {{#each patient.diagnosis}}
+    <tr>
+      <td><img src="/diagnostics/{{this.id}}/image" width="50px" height="50px" /></td>
+      <td>{{this.id}}</td>
+      <td>{{this.createdAt}}</td>
+      <td>{{this.result}}</td>
+      <td><a href="/diagnostics/{{this.id}}/delete">Remover</a></td>
+    </tr>
+  {{/each}}
+</table>
+
 </body>
 </html>

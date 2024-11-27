@@ -3,6 +3,7 @@ import { PrismaModule } from './modules/prisma';
 import { AuthModule } from './modules/auth';
 import { ConfigModule } from '@nestjs/config';
 import { PatientsModule } from './modules/patients';
+import { DiagnosticsModule } from './modules/diagnostics';
 import { AppController } from './app.controller';
 
 @Module({
@@ -11,6 +12,7 @@ import { AppController } from './app.controller';
     PrismaModule,
     AuthModule,
     PatientsModule,
+    DiagnosticsModule,
   ],
   controllers: [AppController],
 })

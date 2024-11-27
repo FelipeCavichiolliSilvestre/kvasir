@@ -64,11 +64,17 @@ export class PatientsController {
   async getPatientView(@Param() params: IdParamDto) {
     const { id } = params;
 
-    const patient = await this.patientsService.getPatient({ patientId: id });
+    const { diagnosis, ...patient } = await this.patientsService.getPatient({
+      patientId: id,
+    });
 
     return {
       patient: {
         ...patient,
+        diagnosis: diagnosis.map(({ createdAt, ...diagnostic }) => ({
+          ...diagnostic,
+          createdAt: createdAt.toLocaleDateString('pt-BR'),
+        })),
         formattedBirthDate: patient.birthDate.toLocaleDateString('pt-BR'),
       },
     };
@@ -80,7 +86,7 @@ export class PatientsController {
     const { id } = params;
 
     const patient = await this.patientsService.getPatient({ patientId: id });
-    console.log(patient.birthDate.toISOString().split('T')[0]);
+
     return {
       patient: {
         ...patient,
