@@ -6,33 +6,48 @@
   <title>Editar Paciente</title>
 </head>
 <body>
-
+{{>navbar}}
 {{message}}
+<div style="max-width: 576px" class="container">
+  <h3 class="text-center mb-4">Editar paciente</h3>
 
+  <form action="/patients/{{patient.id}}/edit" method="post">
+    <label class="form-label col-12 mb-2">
+      Nome do paciente:
+      <input value="{{patient.name}}" class="form-control" type="text" required minlength="4" maxlength="255"
+             name="name" />
+    </label>
 
-<form action="/patients/{{patient.id}}/edit" method="post">
-  <label>
-    Nome do paciente:
-    <input value="{{patient.name}}" type="text" required minlength="4" maxlength="255" name="name" />
-  </label>
-  <br />
-  <label>
-    Data de Nascimento:
-    <input value="{{patient.birthDate}}" type="date" required name="birthDate" />
-  </label>
-  <br />
-  <label>
-    Peso (kg):
-    <input value="{{patient.weightInKg}}" type="number" required min="0" step=".01" name="weightInKg" />
-  </label>
-  <br />
-  <label>
-    Altura (cm):
-    <input value="{{patient.heightInCm}}" type="number" required min="0" max="300" step="1" name="heightInCm" />
-  </label>
-  <br />
-  <input value="Atualizar" type="submit" />
-</form>
+    <label class="form-label col-12 mb-2">
+      Data de Nascimento:
+      <input value="{{patient.birthDate}}" class="form-control" type="date" required name="birthDate" />
+    </label>
 
+    <label for="weight-input" class="form-label col-12">
+      Peso:
+    </label>
+    <div class="input-group mb-2">
+      <input value="{{patient.weightInKg}}" id="weight-input" class="form-control" type="number" required min="0"
+             step=".01" name="weightInKg" />
+      <span class="input-group-text">kg</span>
+    </div>
+
+    <label for="height-input">
+      Altura:
+    </label>
+    <div class="input-group mb-2">
+      <input value="{{patient.heightInCm}}" id="height-input" class="form-control" type="number" required min="0"
+             max="300" step="1"
+             name="heightInCm" />
+      <span class="input-group-text">cm</span>
+    </div>
+
+    <div class="text-end mt-4">
+      <a class="btn btn-secondary" href="javascript:history.back()">Cancelar</a>
+      <input class="btn btn-primary" value="Registrar" type="submit" />
+    </div>
+
+  </form>
+</div>
 </body>
 </html>

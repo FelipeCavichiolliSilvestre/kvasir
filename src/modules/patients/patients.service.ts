@@ -43,6 +43,7 @@ export class PatientsService implements iPatientsService {
 
   async deletePatient(id: number): Promise<void> {
     await this.prismaService.$transaction([
+      this.prismaService.diagnostic.deleteMany({ where: { patientId: id } }),
       this.prismaService.patient.delete({ where: { id } }),
     ]);
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import {
   CreateDiagnosticInput,
+  GenerateDiagnosticReportOutput,
   GetDiagnosticImagePathInput,
   iDiagnosticsService,
 } from './diagnostics.service-interface';
@@ -13,6 +14,26 @@ export class DiagnosticService implements iDiagnosticsService {
     private readonly prismaService: PrismaService,
     private readonly aiService: iAiService,
   ) {}
+
+  async generateDiagnosticReport(
+    diagnosticId: number,
+  ): Promise<GenerateDiagnosticReportOutput> {
+    const { patient, ...diagnosis } =
+      await this.prismaService.diagnostic.findUnique({
+        where: { id: diagnosticId },
+        include: {
+          patient: true,
+        },
+      });
+
+    return {
+      patient: {
+        ...patient,
+        bmi: patient.weightInKg / Math.pow(patient.heightInCm / 100, 2),
+      },
+      diagnosis,
+    };
+  }
 
   async deleteDiagnostic(diagnosticId: number): Promise<number> {
     const { patientId } = await this.prismaService.diagnostic.delete({

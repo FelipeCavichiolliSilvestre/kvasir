@@ -6,55 +6,65 @@
   <title>Visualizar Paciente</title>
 </head>
 <body>
-
+{{>navbar}}
 {{message}}
-
-<div>
-  <a href="/patients/{{patient.id}}/edit">Editar</a>
-  <a href="/patients/{{patient.id}}/delete">Remover</a>
-</div>
-
-<table>
-  <tr>
-    <th>Id</th>
-    <th>Nome</th>
-    <th>Dt. de Nascimento</th>
-    <th>Peso (Kg)</th>
-    <th>Altura (Cm)</th>
-  </tr>
-  <tr>
-    <td>{{patient.id}}</td>
-    <td>{{patient.name}}</td>
-    <td>{{patient.formattedBirthDate}}</td>
-    <td>{{patient.weightInKg}}</td>
-    <td>{{patient.heightInCm}}</td>
-  </tr>
-</table>
-
-<form enctype="multipart/form-data" action="/patients/{{patient.id}}/diagnostics/create" method="post">
-  <input type="file" name="image" required>
-  <input type="submit" value="Criar Diagnóstico" />
-</form>
-
-<table>
-  <tr>
-    <th>Imagem</th>
-    <th>Id</th>
-    <th>Dt. de Análise</th>
-    <th>Resultado</th>
-    <th>Ações</th>
-  </tr>
-
-  {{#each patient.diagnosis}}
+<div class="container">
+  <h2 class="text-center mb-3">Paciente</h2>
+  <table class="table">
     <tr>
-      <td><img src="/diagnostics/{{this.id}}/image" width="50px" height="50px" /></td>
-      <td>{{this.id}}</td>
-      <td>{{this.createdAt}}</td>
-      <td>{{this.result}}</td>
-      <td><a href="/diagnostics/{{this.id}}/delete">Remover</a></td>
+      <th>Id</th>
+      <th>Nome</th>
+      <th>Dt. de Nascimento</th>
+      <th>Peso (Kg)</th>
+      <th>Altura (Cm)</th>
     </tr>
-  {{/each}}
-</table>
+    <tr>
+      <td>{{patient.id}}</td>
+      <td>{{patient.name}}</td>
+      <td>{{patient.formattedBirthDate}}</td>
+      <td>{{patient.weightInKg}}</td>
+      <td>{{patient.heightInCm}}</td>
+    </tr>
+  </table>
+  <div class="text-end">
+    <a class="btn btn-warning" href="/patients/{{patient.id}}/edit">Editar</a>
+    <a class="btn btn-danger" href="/patients/{{patient.id}}/delete">Remover</a>
+  </div>
 
+  <h2 class="text-center m-4">Diagnósticos</h2>
+
+  <form class="row mb-4" enctype="multipart/form-data" action="/patients/{{patient.id}}/diagnostics/create"
+        method="post">
+    <div class="col-10">
+      <input class="form-control" accept=".png,.jpeg,.jpg" type="file" name="image" required>
+    </div>
+    <input class="col-2 btn btn-primary" type="submit" value="Criar Diagnóstico" />
+  </form>
+
+
+  {{#if isDiagnosisEmpty}}
+    <p class="text-center">Nenhum diagnóstico encontrado</p>
+  {{else}}
+    <table class="table">
+    <tr>
+      <th>Imagem</th>
+      <th>Id</th>
+      <th>Dt. de Análise</th>
+      <th>Resultado</th>
+      <th>Ações</th>
+      {{#each patient.diagnosis}}
+      </tr>
+        <tr>
+          <td><img src="/diagnostics/{{this.id}}/image" width="50px" height="50px" /></td>
+          <td>{{this.id}}</td>
+          <td>{{this.createdAt}}</td>
+          <td>{{this.result}}</td>
+          <td><a style="margin-right: 1em" href="/diagnostics/{{this.id}}/delete">Remover</a><a
+            href="/diagnostics/{{this.id}}/report">Relatório</a></td>
+        </tr>
+      {{/each}}
+    </table>
+  {{/if}}
+</div>
 </body>
 </html>

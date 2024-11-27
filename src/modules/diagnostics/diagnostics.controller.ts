@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   Param,
@@ -13,7 +12,6 @@ import {
 import { FoundException, IdParamDto } from '../../shared';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
-import { iPatientsService } from '../patients/patients.service-interface';
 import { iDiagnosticsService } from './diagnostics.service-interface';
 import { createReadStream } from 'fs';
 
@@ -66,5 +64,26 @@ export class DiagnosticsController {
 
     response.setHeader('location', `/patients/${patientId}/view`);
     throw new FoundException();
+  }
+
+  @Get('/diagnostics/:id/report')
+  @Render('diagnostics/report')
+  async reportDiagnostic(@Param() params: IdParamDto) {
+    const { id: diagnosticId } = params;
+
+    const { diagnosis, patient } =
+      await this.diagnosticsService.generateDiagnosticReport(diagnosticId);
+    console.log(patient);
+    return {
+      diagnosis: {
+        ...diagnosis,
+        createdAt: diagnosis.createdAt.toLocaleDateString('pt-BR'),
+      },
+      patient: {
+        ...patient,
+        birthDate: patient.birthDate.toLocaleDateString('pt-BR'),
+        bmi: patient.bmi.toFixed(2),
+      },
+    };
   }
 }

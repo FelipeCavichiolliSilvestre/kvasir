@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Diagnostic, Patient } from '@prisma/client';
 
 @Injectable()
 export abstract class iDiagnosticsService {
@@ -7,6 +8,9 @@ export abstract class iDiagnosticsService {
   ): Promise<string>;
   abstract createDiagnostic(data: CreateDiagnosticInput): Promise<void>;
   abstract deleteDiagnostic(diagnosticId: number): Promise<number>;
+  abstract generateDiagnosticReport(
+    diagnosticId: number,
+  ): Promise<GenerateDiagnosticReportOutput>;
 }
 
 export type CreateDiagnosticInput = {
@@ -16,4 +20,9 @@ export type CreateDiagnosticInput = {
 
 export type GetDiagnosticImagePathInput = {
   diagnosisId: number;
+};
+
+export type GenerateDiagnosticReportOutput = {
+  patient: Patient & { bmi: number };
+  diagnosis: Diagnostic;
 };

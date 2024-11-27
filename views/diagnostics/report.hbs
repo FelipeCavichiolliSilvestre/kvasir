@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  {{>bootstrap }}
+  <title>Relatório</title>
+</head>
+<body>
+<div class="container mt-4">
+  <table class="table">
+    <tr>
+      <th>Id do Paciente</th>
+      <th>Nome do Paciente</th>
+      <th>Dt. de Nascimento</th>
+      <th>Peso (Kg)</th>
+      <th>Altura (Cm)</th>
+      <th>IMC</th>
+    </tr>
+    <tr>
+      <td>{{patient.id}}</td>
+      <td>{{patient.name}}</td>
+      <td>{{patient.birthDate}}</td>
+      <td>{{patient.weightInKg}}</td>
+      <td>{{patient.heightInCm}}</td>
+      <td>{{patient.bmi}}</td>
+    </tr>
+  </table>
+
+  <div class="text-center">
+    <img src="/diagnostics/{{diagnosis.id}}/image" />
+  </div>
+
+  <table class="table">
+    <tr>
+      <th>Id do Diagnóstico</th>
+      <th>Dt. de Análise</th>
+      <th>Resultado</th>
+    </tr>
+    <tr>
+      <td>{{diagnosis.id}}</td>
+      <td>{{diagnosis.createdAt}}</td>
+      <td>{{diagnosis.result}}</td>
+    </tr>
+  </table>
+
+</div>
+
+</div>
+</body>
+</html>

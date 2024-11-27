@@ -77,6 +77,7 @@ export class PatientsController {
         })),
         formattedBirthDate: patient.birthDate.toLocaleDateString('pt-BR'),
       },
+      isDiagnosisEmpty: diagnosis.length === 0,
     };
   }
 

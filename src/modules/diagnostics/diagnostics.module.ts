@@ -4,6 +4,7 @@ import { DiagnosticsController } from './diagnostics.controller';
 import { AiModule } from '../ai';
 import { iDiagnosticsService } from './diagnostics.service-interface';
 import { DiagnosticService } from './diagnostic.service';
+import { PatientsModule } from '../patients';
 
 @Module({
   imports: [

@@ -6,15 +6,17 @@
   <title>Remover Paciente</title>
 </head>
 <body>
-
+{{>navbar}}
 {{message}}
+<div style="max-width: 576px" class="container">
 
-
-<form action="/patients/{{patient.id}}/delete" method="post">
-  Deseja remover o pacience {{patient.name}}?
-  <a href="/patients/{{patient.id}}/view">Cancelar</a>
-  <input value="Remover" type="submit" />
-</form>
-
+  <form action="/patients/{{patient.id}}/delete" method="post">
+    <p class="h5 text-center">Deseja remover o pacience "{{patient.name}}"?</p>
+    <div class="text-center mt-4">
+      <a class="btn btn-secondary" href="javascript:history.back()">Cancelar</a>
+      <input class="btn btn-danger" value="Remover" type="submit" />
+    </div>
+  </form>
+</div>
 </body>
 </html>
